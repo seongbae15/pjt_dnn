@@ -18,8 +18,9 @@ def __load_dataframe(is_train=True):
     return pd.read_csv(base_path + file_name)
 
 def __convert_image_dataset(raw_image_infos):
-    image_infos= np.array([list(map(int, raw_img_info.split())) for raw_img_info in raw_image_infos]).reshape(-1,96,96)
-    return image_infos
+    image_infos= [np.array(list(map(int, raw_img_info.split()))).reshape(96,96,1) for raw_img_info in raw_image_infos]
+    print(np.array(image_infos).shape)
+    return np.array(image_infos)
 
 def normalize_image(x):
     x = x.astype(np.float32)/255.0
