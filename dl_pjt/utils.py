@@ -42,8 +42,6 @@ def normalize_image(x):
 def split_data(x, y, train_ratio=0.8):
     row = x.shape[0]
     indices = np.random.choice(row, row)
-    print(x.dtype, y.dtype)
-    print(x.shape, y.shape)
     x = tf.gather(tf.constant(x), indices=indices).numpy()
     y = tf.gather(tf.constant(y), indices=indices).numpy()
 
