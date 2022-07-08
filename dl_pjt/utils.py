@@ -5,23 +5,24 @@ import tensorflow as tf
 
 def get_dataset_xy(is_train=True):
     df = __load_dataframe(is_train)
-    y = df.iloc[:,:-1]
-    x = df.iloc[:,-1]
-    y = fill_null_data(df, -100)
-    x = __convert_image_dataset(x)    
-    return x, y
+    y = df.iloc[:, :-1]
+    x = df.iloc[:, -1]
+    y = fill_null_data(y, -100.0)
+    x = __convert_image_dataset(x)
+    return x, y.values
+
 
 def __load_dataframe(is_train=True):
-    base_path="./data/facial-keypoints-detection/"
+    base_path = "./data/facial-keypoints-detection/"
     if is_train:
         file_name = "training.csv"
     else:
         file_name = "test.csv"
     return pd.read_csv(base_path + file_name)
 
+
 def fill_null_data(df, fill_value):
     df = df.fillna(fill_value)
-    print(df.info())
     return df
 
 
@@ -29,18 +30,22 @@ def __convert_image_dataset(raw_image_infos):
     image_infos = []
     for raw_img_info in raw_image_infos:
         image_infos.append(list(map(int, raw_img_info.split())))
-    image_infos = np.array(image_infos).reshape(-1,96,96,1)
+    image_infos = np.array(image_infos).reshape(-1, 96, 96, 1)
     return image_infos
 
+
 def normalize_image(x):
-    x = x.astype(np.float32)/255.0
+    x = x.astype(np.float32) / 255.0
     return x
+
 
 def split_data(x, y, train_ratio=0.8):
     row = x.shape[0]
     indices = np.random.choice(row, row)
-    x = tf.gather(x, indices=indices).numpy()
-    y = tf.gather(y, indices=indices).numpy()
+    print(x.dtype, y.dtype)
+    print(x.shape, y.shape)
+    x = tf.gather(tf.constant(x), indices=indices).numpy()
+    y = tf.gather(tf.constant(y), indices=indices).numpy()
 
     train_count = int(row * train_ratio)
     valid_count = row - train_count
