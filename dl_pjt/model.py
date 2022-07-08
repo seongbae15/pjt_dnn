@@ -11,7 +11,7 @@ class Facial_Kepoints_Detect():
                     pool_size=(2, 2), pool_stride=(2, 2)):
         last_size = int(input_size[0]/4) * int(input_size[1]/4)
         last_layer = last_size * init_conv_filters*4
-        self.layers = Sequential([
+        self.__layers = Sequential([
                                 Conv2D(input_shape=input_size, filters=init_conv_filters, kernel_size=kernel_size,
                                         strides=conv_stride, padding="same", activation="relu"),
                                 Conv2D(filters=init_conv_filters*2, kernel_size=kernel_size,
@@ -26,4 +26,7 @@ class Facial_Kepoints_Detect():
                                 Dense(last_layer, activation="relu"),
                                 Dense(output_size, activation="relu")
         ])
-        self.layers.summary()
+        self.__layers.summary()
+    
+    def get_model(self):
+        return self.__layers
