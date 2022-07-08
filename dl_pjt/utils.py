@@ -1,12 +1,13 @@
 import pandas as pd
 import numpy as np
+import tensorflow as tf
+
 
 def get_dataset_xy(is_train=True):
     df = __load_dataframe(is_train)
     y = df.iloc[:,:-1]
     x = df.iloc[:,-1]
-    x = __convert_image_dataset(x)
-    
+    x = __convert_image_dataset(x)    
     return x, y
 
 def __load_dataframe(is_train=True):
@@ -30,10 +31,15 @@ def normalize_image(x):
 
 def split_data(x, y, train_ratio=0.8):
     row = x.shape[0]
+    indices = np.random.choice(row, row)
+    x = tf.gather(x, indices=indices).numpy()
+    y = tf.gather(y, indices=indices).numpy()
+
     train_count = int(row * train_ratio)
     valid_count = row - train_count
-    indices = np.random.choice(row, row)
-    x = [x[:train_count], x[train_count:]]
-    y = [y[:train_count], y[train_count:]]
+    x0, x1 = tf.split(x, [train_count, valid_count])
+    y0, y1 = tf.split(y, [train_count, valid_count])
+    x = [x0, x1]
+    y = [y0, y1]
     return x, y
 

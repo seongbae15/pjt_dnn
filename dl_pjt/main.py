@@ -9,6 +9,7 @@ def main():
     train_x, train_y = get_dataset_xy(is_train=True)
     train_x = normalize_image(train_x)
     train_x, train_y = split_data(train_x, train_y)
+    
     # model = Facial_Kepoints_Detect(input_size=, output_size=)
     # model.summray()
     return
