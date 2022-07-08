@@ -7,6 +7,7 @@ def get_dataset_xy(is_train=True):
     df = __load_dataframe(is_train)
     y = df.iloc[:,:-1]
     x = df.iloc[:,-1]
+    y = fill_null_data(df, -100)
     x = __convert_image_dataset(x)    
     return x, y
 
@@ -17,6 +18,12 @@ def __load_dataframe(is_train=True):
     else:
         file_name = "test.csv"
     return pd.read_csv(base_path + file_name)
+
+def fill_null_data(df, fill_value):
+    df = df.fillna(fill_value)
+    print(df.info())
+    return df
+
 
 def __convert_image_dataset(raw_image_infos):
     image_infos = []
