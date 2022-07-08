@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import tensorflow as tf
 
 def get_dataset_xy(is_train=True):
     df = __load_dataframe(is_train)
@@ -26,4 +25,12 @@ def normalize_image(x):
     x = x.astype(np.float32)/255.0
     return x
 
+def split_data(x, y, train_ratio=0.8):
+    row = x.shape[0]
+    train_count = int(row * train_ratio)
+    valid_count = row - train_count
+    indices = np.random.choice(row, row)
+    x = [x[:train_count], x[train_count:]]
+    y = [y[:train_count], y[train_count:]]
+    return x, y
 
