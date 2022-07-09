@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import tensorflow as tf
+import matplotlib.pyplot as plt
+import os
 
 
 def get_dataset_xy(is_train=True):
@@ -56,3 +58,27 @@ def split_data(x, y, train_ratio=0.8):
     x = [x0, x1]
     y = [y0, y1]
     return x, y
+
+
+def disp_result(history):
+    plt.figure(figsize=(8, 4))
+    plt.subplot(1, 2, 1)
+    plt.plot(history.history["loss"], "b-", label="training")
+    plt.plot(history.history["val_loss"], "r:", label="validation")
+    plt.xlim(5, 30)
+    plt.title("model - loss")
+    plt.subplot(1, 2, 2)
+    plt.plot(history.history["accuracy"], "b-", label="training")
+    plt.plot(history.history["val_accuracy"], "r:", label="validation")
+    plt.title("model - accuracy")
+    plt.legend()
+    plt.tight_layout()
+    plt.xlim(5, 30)
+    plt.show()
+    return
+
+
+def init_GPU_memory():
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    with tf.Graph().as_default():
+        gpu_options = tf.compat.v1.GPUOptions(allow_growth=True)
