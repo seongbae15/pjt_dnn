@@ -5,9 +5,9 @@ import tensorflow as tf
 
 def get_dataset_xy(is_train=True):
     df = __load_dataframe(is_train)
+    df = drop_null_columns(df)
     y = df.iloc[:, :-1]
     x = df.iloc[:, -1]
-    y = fill_null_data(y, -100.0)
     x = __convert_image_dataset(x)
     return x, y.values
 
@@ -19,6 +19,11 @@ def __load_dataframe(is_train=True):
     else:
         file_name = "test.csv"
     return pd.read_csv(base_path + file_name)
+
+
+def drop_null_columns(df):
+    df = df.dropna(axis=1)
+    return df
 
 
 def fill_null_data(df, fill_value):
@@ -42,9 +47,8 @@ def normalize_image(x):
 def split_data(x, y, train_ratio=0.8):
     row = x.shape[0]
     indices = np.random.choice(row, row)
-    x = tf.gather(tf.constant(x), indices=indices).numpy()
-    y = tf.gather(tf.constant(y), indices=indices).numpy()
-
+    x = tf.gather(x, indices=indices).numpy()
+    y = tf.gather(y, indices=indices).numpy()
     train_count = int(row * train_ratio)
     valid_count = row - train_count
     x0, x1 = tf.split(x, [train_count, valid_count])

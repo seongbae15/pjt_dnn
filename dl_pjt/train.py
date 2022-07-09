@@ -1,4 +1,3 @@
-
 from tensorflow.keras.optimizers import SGD
 
 def train_model(model, train_x, train_y, batch_size, learning_rate):
