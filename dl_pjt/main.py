@@ -11,14 +11,18 @@ def main():
     train_x = normalize_image(train_x)
     train_x, train_y = split_data(train_x, train_y)
     model = Facial_Kepoints_Detect(
-        input_size=[96, 96, 1],
-        output_size=30,
-        init_conv_filters=8,
+        input_size=[96, 96, 1], output_size=30, init_conv_filters=8,
     )
-    batch_size = 256
-    lr = 0.01
-    train_model(
-        model.get_model(), train_x, train_y, batch_size=batch_size, learning_rate=lr
+    batch_size = 32
+    lr = 0.001
+    epochs = 30
+    history = train_model(
+        model.get_model(),
+        train_x,
+        train_y,
+        batch_size=batch_size,
+        learning_rate=lr,
+        epochs=epochs,
     )
 
 

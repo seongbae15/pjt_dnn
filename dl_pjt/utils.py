@@ -56,4 +56,3 @@ def split_data(x, y, train_ratio=0.8):
     x = [x0, x1]
     y = [y0, y1]
     return x, y
-

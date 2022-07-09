@@ -1,7 +1,7 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPool2D
-from tensorflow.keras.layers import LeakyReLU
+from tensorflow.keras.layers import BatchNormalization
 
 import numpy as np
 
@@ -27,37 +27,38 @@ class Facial_Kepoints_Detect:
                     kernel_size=kernel_size,
                     strides=conv_stride,
                     padding="same",
-                    activation="linear",
+                    activation="relu",
                 ),
-                LeakyReLU(alpha=0.3),
+                BatchNormalization(),
                 Conv2D(
                     filters=init_conv_filters * 2,
                     kernel_size=kernel_size,
                     strides=conv_stride,
                     padding="same",
-                    activation="linear",
+                    activation="relu",
                 ),
-                LeakyReLU(alpha=0.3),
+                BatchNormalization(),
                 MaxPool2D(pool_size=pool_size, strides=pool_stride),
                 Conv2D(
                     filters=init_conv_filters * 3,
                     kernel_size=kernel_size,
                     strides=conv_stride,
                     padding="same",
-                    activation="linear",
+                    activation="relu",
                 ),
-                LeakyReLU(alpha=0.3),
+                BatchNormalization(),
                 Conv2D(
                     filters=init_conv_filters * 4,
                     kernel_size=kernel_size,
                     strides=conv_stride,
                     padding="same",
-                    activation="linear",
+                    activation="relu",
                 ),
-                LeakyReLU(alpha=0.3),
+                BatchNormalization(),
                 MaxPool2D(pool_size=pool_size, strides=pool_stride),
                 Flatten(),
                 Dense(last_layer, activation="relu"),
+                Dense(int(last_layer * 0.5), activation="relu"),
                 Dense(output_size, activation="relu"),
             ]
         )
