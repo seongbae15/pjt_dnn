@@ -3,3 +3,5 @@ dl_pjt/data/*
 .DS_Store
 
 *.hdf5
+
+dl_pjt/static/img/*
