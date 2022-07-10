@@ -30,8 +30,8 @@ def train_model(
 
 def set_train_callback():
     CP = ModelCheckpoint(
-        filepath="Models/{epoch:03d}-{loss:.4f}-{accuracy:.4f}.hdf5",
-        monitor="loss",
+        filepath="train_models/{epoch:03d}-{loss:.4f}-{accuracy:.4f}.hdf5",
+        monitor="val_loss",
         verbose=1,
         save_best_only=True,
         mode="min",
