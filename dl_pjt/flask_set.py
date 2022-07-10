@@ -9,26 +9,25 @@ from model import Facial_Kepoints_Detect
 web_model = Facial_Kepoints_Detect(
     input_size=[96, 96, 1], output_size=2, init_conv_filters=6,
 )
-# str = model_file name
-model_file_name = ""
+model_file_name = "029-2.0174-0.9949.hdf5"
 web_model.set_loaded_model(model_file_name)
 
 
-# set Flask
+# Set Flask
 app = Flask(__name__)
 
 
 @app.route("/")
 @app.route("/FacialKeypoints")
-def FacialKeypointsPrediction():
+def FacialKeypoints():
     # picture_number == test file index
-    picture_number = request.args.get("picture")
+    picture_number = request.args.get("picture_number")
 
-    # test file image preprocessing
+    if picture_number == None:
+        return render_template("FacialKeypoints.html", Output="")
+    else:
 
-    # disp output
-
-    return render_template("facial_keypoints.html")
+        return render_template("FacialKeypoints.html", Output=picture_number)
 
 
 app.run(host="0.0.0.0", port=5000)

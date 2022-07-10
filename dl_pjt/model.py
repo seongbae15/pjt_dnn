@@ -68,5 +68,6 @@ class Facial_Kepoints_Detect:
         return self.__layers
 
     def set_loaded_model(self, model_file_name):
-        self.__layers.load_weight(model_file_name)
+        base_path = "models/"
+        self.__layers.load_weights(base_path + model_file_name)
         return
