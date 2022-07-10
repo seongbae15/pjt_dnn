@@ -6,6 +6,7 @@ from utils import disp_result
 from utils import init_GPU_memory
 from model import Facial_Kepoints_Detect
 from train import train_model
+from train import set_train_callback
 
 
 def main():
@@ -19,6 +20,7 @@ def main():
     batch_size = 32
     lr = 0.001
     epochs = 30
+    CALLBACK = set_train_callback()
     history = train_model(
         model.get_model(),
         train_x,
@@ -26,6 +28,7 @@ def main():
         batch_size=batch_size,
         learning_rate=lr,
         epochs=epochs,
+        callback_fn=CALLBACK
     )
     disp_result(history)
     init_GPU_memory()
