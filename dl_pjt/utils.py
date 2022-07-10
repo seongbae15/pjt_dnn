@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os
 
 
-def get_dataset_xy(is_train=True):
+def get_train_dataset_xy(is_train=True):
     df = __load_dataframe(is_train)
     df = drop_null_columns(df)
     y = df.iloc[:, :-1]
