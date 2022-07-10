@@ -66,6 +66,7 @@ def disp_result(history):
     plt.plot(history.history["loss"], "b-", label="training")
     plt.plot(history.history["val_loss"], "r:", label="validation")
     plt.xlim(5, 30)
+    plt.ylim(-5, 15)
     plt.title("model - loss")
     plt.subplot(1, 2, 2)
     plt.plot(history.history["accuracy"], "b-", label="training")
@@ -74,6 +75,7 @@ def disp_result(history):
     plt.legend()
     plt.tight_layout()
     plt.xlim(5, 30)
+    plt.ylim(-5, 15)
     plt.show()
     return
 
