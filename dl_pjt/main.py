@@ -11,7 +11,7 @@ from train import set_train_callback
 
 def main():
     init_GPU_memory()
-    train_x, train_y = get_train_dataset_xy(is_train=True)
+    train_x, train_y = get_train_dataset_xy()
     train_x = normalize_image(train_x)
     train_x, train_y = split_data(train_x, train_y)
     model = Facial_Kepoints_Detect(

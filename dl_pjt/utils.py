@@ -5,13 +5,20 @@ import matplotlib.pyplot as plt
 import os
 
 
-def get_train_dataset_xy(is_train=True):
-    df = __load_dataframe(is_train)
+def get_train_dataset_xy():
+    df = __load_dataframe(is_train=True)
     df = drop_null_columns(df)
     y = df.iloc[:, :-1]
     x = df.iloc[:, -1]
     x = __convert_image_dataset(x)
     return x, y.values
+
+
+def get_test_dataset():
+    df = __load_dataframe(is_train=False)
+    x = df.iloc[:, -1]
+    x = __convert_image_dataset(x)
+    return x
 
 
 def __load_dataframe(is_train=True):
@@ -23,6 +30,14 @@ def __load_dataframe(is_train=True):
     return pd.read_csv(base_path + file_name)
 
 
+def __convert_image_dataset(raw_image_infos):
+    image_infos = []
+    for raw_img_info in raw_image_infos:
+        image_infos.append(list(map(int, raw_img_info.split())))
+    image_infos = np.array(image_infos).reshape(-1, 96, 96, 1)
+    return image_infos
+
+
 def drop_null_columns(df):
     df = df.dropna(axis=1)
     return df
@@ -31,14 +46,6 @@ def drop_null_columns(df):
 def fill_null_data(df, fill_value):
     df = df.fillna(fill_value)
     return df
-
-
-def __convert_image_dataset(raw_image_infos):
-    image_infos = []
-    for raw_img_info in raw_image_infos:
-        image_infos.append(list(map(int, raw_img_info.split())))
-    image_infos = np.array(image_infos).reshape(-1, 96, 96, 1)
-    return image_infos
 
 
 def normalize_image(x):

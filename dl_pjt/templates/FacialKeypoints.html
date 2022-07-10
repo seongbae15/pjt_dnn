@@ -15,12 +15,15 @@
     <form action="">
         <div>
             <label for="picture_number">Picture Number</label>
-            <input type="text" id="picture_number" name="picture_number" placeholder="Picture Number 1~255"/>
+            <input type="text" id="picture_number" name="picture_number" placeholder="Picture Number 1~1783"/>
         </div>
         <button type="submit">Submit</button>
     </form>
     <div>
-        <span>{{Output}}</span>
+        <div>
+            {{Output}}
+        </div>
+        <img class="result_img" src="{{url_for('static', filename='/img/result.png')}}" />
     </div>
 </body>
 </html>
