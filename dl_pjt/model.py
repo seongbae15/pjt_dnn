@@ -2,6 +2,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPool2D
 from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.layers import GlobalAveragePooling2D
 
 import numpy as np
 
@@ -56,7 +57,7 @@ class Facial_Kepoints_Detect:
                 ),
                 BatchNormalization(),
                 MaxPool2D(pool_size=pool_size, strides=pool_stride),
-                Flatten(),
+                GlobalAveragePooling2D(),
                 Dense(last_layer, activation="relu"),
                 Dense(int(last_layer * 0.5), activation="relu"),
                 Dense(output_size, activation="relu"),

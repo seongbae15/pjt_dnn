@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 web_model = Facial_Kepoints_Detect(
     input_size=[96, 96, 1], output_size=2, init_conv_filters=6,
 )
-model_file_name = "029-2.0174-0.9949.hdf5"
+model_file_name = "028-13.8205-0.9826.hdf5"
 web_model.set_loaded_model(model_file_name)
 
 
