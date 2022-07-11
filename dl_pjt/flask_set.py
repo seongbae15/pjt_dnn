@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 web_model = Facial_Kepoints_Detect(
     input_size=[96, 96, 1], output_size=2, init_conv_filters=6,
 )
-model_file_name = "028-13.8205-0.9826.hdf5"
+model_file_name = "099-6.2220-0.9871.hdf5"
 web_model.set_loaded_model(model_file_name)
 
 
@@ -34,7 +34,7 @@ def FacialKeypoints():
         plt.imshow(ith_image_data[picture_idx], cmap="gray")
         plt.plot(result[picture_idx][0], result[picture_idx][1], "rx")
         plt.savefig("static/img/result.png")
-        return render_template("FacialKeypoints.html", Output=result[0])
+        return render_template("FacialKeypoints.html", Output=result[picture_idx])
     else:
         return render_template("FacialKeypoints.html", Output="")
 
