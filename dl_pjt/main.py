@@ -19,7 +19,7 @@ def main():
     )
     batch_size = 32
     lr = 0.001
-    epochs = 30
+    epochs = 100
     CALLBACK = set_train_callback()
     history = train_model(
         model.get_model(),

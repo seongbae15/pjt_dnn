@@ -58,8 +58,8 @@ class Facial_Kepoints_Detect:
                 BatchNormalization(),
                 MaxPool2D(pool_size=pool_size, strides=pool_stride),
                 GlobalAveragePooling2D(),
-                Dense(last_layer, activation="relu"),
-                Dense(int(last_layer * 0.5), activation="relu"),
+                Dense(int(output_size * 2048), activation="relu"),
+                Dense(int(output_size * 512), activation="relu"),
                 Dense(output_size, activation="relu"),
             ]
         )
